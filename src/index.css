@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(
+    circle at 50% 50%,
+    #af06ff,
+    #004dff 50%,
+    #111441 100%
+  );
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+#root {
+  width: 90%;
+  height: 90%;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Additional styling for the main content */
+.main-content {
+  text-align: center;
+  font-family: "Arial", sans-serif;
+  color: #333;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #111441;
+}
+
+p {
+  font-size: 1.2rem;
+  color: #004dff;
+}
