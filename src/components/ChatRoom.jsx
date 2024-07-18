@@ -2,7 +2,12 @@ import { Col, Row } from "react-bootstrap";
 import MessageContainer from "./MessageContainer";
 import SendMessageForm from "./SendMessageForm";
 
-function ChatRoom({ messages, sendMessage }) {
+function ChatRoom({
+  messages,
+  sendMessage,
+  cookieCounter,
+  handleIncrementCookie,
+}) {
   // Define inline styles
   const containerStyle = {
     padding: "20px", // Container padding
@@ -28,11 +33,29 @@ function ChatRoom({ messages, sendMessage }) {
     paddingTop: "20px", // Space above the send message form
   };
 
+  const buttonStyle = {
+    backgroundImage: "linear-gradient(to right, #af06ff, #004dff)",
+    border: "none",
+    color: "white",
+    borderRadius: "10px",
+  };
+
   return (
     <div style={containerStyle}>
-      <Row style={headerRowStyle} className="px-5 py-5">
+      <Row style={headerRowStyle} className="px-5">
         <Col sm={12}>
-          <h2 style={headerStyle}>Chat Room</h2>
+          <h2 className="display-5" style={headerStyle}>
+            Chat Room
+          </h2>
+          <div className="d-grid">
+            <button
+              className="btn"
+              style={buttonStyle}
+              onClick={handleIncrementCookie}
+            >
+              Click Me: {cookieCounter}
+            </button>
+          </div>
         </Col>
         <Col></Col>
       </Row>
