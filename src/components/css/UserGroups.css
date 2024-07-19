@@ -1,0 +1,12 @@
+/* UserGroups.css */
+.custom-group-card {
+  min-width: 300px; /* Set a minimum width */
+  border: 1px solid #dee2e6; /* Add a border, similar to Bootstrap's style */
+  border-radius: 0.25rem; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: transform 0.2s; /* Smooth transition for hover effect */
+}
+
+.custom-group-card:hover {
+  transform: scale(1.03); /* Slightly enlarge cards on hover */
+}

@@ -12,13 +12,10 @@ function ChatandWaitRoom() {
 
   const joinChatRoom = async (userName, chatRoom) => {
     if (connection) return; // Prevent multiple connections
-    let userConnection = {
-      Username: userName,
-      ChatRoom: chatRoom,
-    };
+
     try {
       const newConnection = new HubConnectionBuilder()
-        .withUrl("https://localhost:7162/chat")
+        .withUrl(`https://localhost:7162/chat?userId=${userId}`)
         .configureLogging(LogLevel.Information)
         .build();
 

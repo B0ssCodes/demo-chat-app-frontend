@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Step 1: Import useHistory
+import { parseJwt } from "../utility/parseJwt";
 
-function Login({ userDetails, setUserDetails }) {
+function Login({ userDetails, setUserDetails, userId, handleUserId }) {
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -39,7 +40,9 @@ function Login({ userDetails, setUserDetails }) {
         description: data.result.description,
       }; // Assuming the response contains the user object
       const token = data.result.token; // Assuming the response contains the token
-
+      const decodedJwt = parseJwt(token);
+      handleUserId(decodedJwt.nameid);
+      console.log(decodedJwt.nameid);
       // Calculate expiry time (current time + 14 days)
       const expiryTime = new Date(
         new Date().getTime() + 14 * 24 * 60 * 60 * 1000
@@ -54,6 +57,7 @@ function Login({ userDetails, setUserDetails }) {
         email: user.email,
         description: user.description,
       });
+      console.log(userDetails);
       onLoginSuccess(user);
       navigate("/"); // Redirect to ChatandWaitRoom
     } catch (error) {
