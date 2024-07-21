@@ -1,27 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function UserGroup({ groupName, members, groupId }) {
+function UserGroup({ room, userId }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/ActiveChat/${groupId}`);
+    console.log(userId);
+    navigate(`/ActiveChat/${room.roomId}`, { state: { userId } });
   };
 
   const styles = {
-    card: {
-      minWidth: "300px",
-      border: "1px solid #dee2e6",
-      borderRadius: "1rem",
-      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-      transition: "transform 0.2s",
-      padding: "20px",
-      margin: "10px",
-      cursor: "pointer",
-    },
-    groupName: {
+    roomName: {
       fontWeight: "bold",
       fontSize: "24px",
+      marginBottom: "5px",
+    },
+    messageCount: {
+      fontSize: "16px",
+      color: "#6c757d",
       marginBottom: "15px",
     },
     memberList: {
@@ -36,15 +32,21 @@ function UserGroup({ groupName, members, groupId }) {
   return (
     <div
       className="card h-100 shadow-sm"
-      style={styles.card}
+      style={{
+        minWidth: "300px",
+        cursor: "pointer",
+        margin: "10px",
+        borderRadius: "1rem",
+      }} // Inline styles for card dimensions and cursor
       onClick={handleClick}
     >
       <div className="card-body">
-        <div style={styles.groupName}>{groupName}</div>
+        <div style={styles.roomName}>{room.name}</div>
+        <div style={styles.messageCount}>Messages: {room.messageCount}</div>
         <div className="card-text">
           <strong>Members:</strong>
           <ul className="list-unstyled" style={styles.memberList}>
-            {members.map((user, index) => (
+            {room.users.map((user, index) => (
               <li key={index} style={styles.memberItem}>
                 {user.username}
               </li>

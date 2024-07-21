@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import UserGroup from "./UserGroup";
 import { Col, Row } from "react-bootstrap";
 
-function UserGroups({ userGroups, setUserGroups, userId }) {
+function UserGroups({ rooms, setRooms, userId }) {
   useEffect(() => {
-    const fetchUserGroups = async () => {
+    const fetchRooms = async () => {
       const url = `https://localhost:7162/api/room/getRoomsByUser/${userId}`;
       try {
         console.log(userId);
@@ -13,7 +13,8 @@ function UserGroups({ userGroups, setUserGroups, userId }) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setUserGroups(data.result);
+        // Set the result in state
+        setRooms(data.result);
         console.log(data.result);
       } catch (error) {
         console.error("Error fetching user groups:", error);
@@ -21,22 +22,18 @@ function UserGroups({ userGroups, setUserGroups, userId }) {
     };
 
     if (userId) {
-      fetchUserGroups();
+      fetchRooms();
     }
-  }, [userId, setUserGroups]);
+  }, [userId, setRooms]);
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">User Groups</h1>
-      {userGroups.length > 0 ? (
+      <h1 className="text-center mb-4">Your Rooms</h1>
+      {rooms.length > 0 ? (
         <Row>
-          {userGroups.map((group) => (
-            <Col sm={12} md={6} key={group.roomId}>
-              <UserGroup
-                groupName={group.name}
-                groupId={group.roomId}
-                members={group.users}
-              />
+          {rooms.map((room) => (
+            <Col sm={12} md={6} key={room.roomId}>
+              <UserGroup room={room} userId={userId} />
             </Col>
           ))}
         </Row>

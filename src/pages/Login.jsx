@@ -69,7 +69,7 @@ function Login({ userDetails, setUserDetails, userId, handleUserId }) {
   return (
     <div className="d-flex justify-content-center align-items-center container">
       <div className="container p-5 formContainer">
-        <h2 className="text-center">Login</h2>
+        <h2 className="text-center display-4">Login</h2>
         <form onSubmit={handleSubmit} className="mt-4">
           <div className="form-group mb-3">
             <label htmlFor="username" className="form-label">
@@ -106,7 +106,7 @@ function Login({ userDetails, setUserDetails, userId, handleUserId }) {
           </div>
         </form>
         <button
-          className="btn btn-success"
+          className="btn btn-success mt-4"
           onClick={() => navigate("/Register")}
         >
           Register
