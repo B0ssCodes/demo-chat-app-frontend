@@ -1,3 +1,5 @@
+import OtherUserDetails from "../modals/OtherUserDetails";
+
 function OtherUserMessage({ message }) {
   return (
     <div
@@ -13,9 +15,7 @@ function OtherUserMessage({ message }) {
         boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
       }}
     >
-      <div style={{ fontWeight: "bold", marginBottom: "5px" }}>
-        {message.username} {message.userId}
-      </div>
+      <OtherUserDetails userId={message.userId} username={message.username} />
       <div>{message.content}</div>
       <div style={{ fontSize: "12px", marginTop: "10px", color: "#666" }}>
         {new Date(message.timestamp).toLocaleString()}
