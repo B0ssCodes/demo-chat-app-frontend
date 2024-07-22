@@ -4,7 +4,7 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 import "./ActiveChat.css"; // Ensure this path is correct
 import CurrentUserMessage from "../components/CurrentUserMessage"; // Assuming this is the path to your component
 import OtherUserMessage from "../components/OtherUserMessage"; // Assuming you have a similar component for other users
-import RoomNameWindow from "../components/RoomNameWindow";
+import RoomDetails from "../components/RoomDetails";
 function ActiveChat() {
   const { roomId } = useParams();
   const location = useLocation();
@@ -60,6 +60,9 @@ function ActiveChat() {
   };
 
   const handleSendMessage = async () => {
+    if (messageContent.trim() == 0) {
+      alert("Message cannot be empty");
+    }
     if (connection) {
       try {
         await connection.invoke(
@@ -84,7 +87,7 @@ function ActiveChat() {
 
   return (
     <>
-      <RoomNameWindow />
+      <RoomDetails userId={userId} roomId={roomId} />
       <div className="chat-container">
         <header className="chat-header"></header>
         <div className="messages-container">

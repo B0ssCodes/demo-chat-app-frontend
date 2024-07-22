@@ -34,11 +34,6 @@ function Navbar({ userDetails, setUserDetails, userId, setUserId }) {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link" to="/chat">
-                Chat
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link className="nav-link" to="/history">
                 History
               </Link>

@@ -27,7 +27,7 @@ function UserGroups({ rooms, setRooms, userId }) {
   }, [userId, setRooms]);
 
   return (
-    <div className="container mt-5">
+    <div className="container" style={{ maxHeight: "85vh", overflowY: "auto" }}>
       <h1 className="text-center mb-4">Your Rooms</h1>
       {rooms.length > 0 ? (
         <Row>

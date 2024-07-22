@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "./UserGroup.css"; // Import the CSS file
 
 function UserGroup({ room, userId }) {
   const navigate = useNavigate();
@@ -31,13 +32,12 @@ function UserGroup({ room, userId }) {
 
   return (
     <div
-      className="card h-100 shadow-sm"
+      className="card h-100 shadow-sm user-group-card" // Added class name for the card
       style={{
         minWidth: "300px",
         cursor: "pointer",
-        margin: "10px",
         borderRadius: "1rem",
-      }} // Inline styles for card dimensions and cursor
+      }}
       onClick={handleClick}
     >
       <div className="card-body">

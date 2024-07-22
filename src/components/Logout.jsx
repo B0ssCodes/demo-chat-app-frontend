@@ -41,7 +41,13 @@ function Logout({ userDetails, setUserDetails, setUserId }) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Logout</Button>
+      <div
+        className="nav-link"
+        style={{ cursor: "pointer" }}
+        onClick={handleOpen}
+      >
+        Logout
+      </div>
       <Modal
         open={open}
         onClose={handleClose}

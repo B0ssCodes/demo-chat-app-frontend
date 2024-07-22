@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import ChatandWaitRoom from "./pages/ChatandWaitRoom";
 import ProtectedRoute from "./components/ProtectedRoute"; // Assuming ProtectedRoute is saved under components folder
 import Navbar from "./components/layout/Navbar";
 import { parseJwt } from "./utility/parseJwt";
 import Dashboard from "./pages/Dashboard";
 import ActiveChat from "./pages/ActiveChat";
+import History from "./pages/History";
+import Profile from "./pages/Profile";
 const App = () => {
   const [userDetails, setUserDetails] = useState({
     username: "",
@@ -47,6 +48,22 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/History"
+          element={
+            <ProtectedRoute>
+              <History userId={userId} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Profile"
+          element={
+            <ProtectedRoute>
+              <Profile userId={userId} />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/ActiveChat/:roomId" element={<ActiveChat />} />{" "}
         <Route
           path="/Login"
@@ -60,15 +77,6 @@ const App = () => {
           }
         />
         <Route path="/Register" element={<Register />} />
-        <Route
-          path="/Chat"
-          element={
-            <ProtectedRoute>
-              <ChatandWaitRoom />
-            </ProtectedRoute>
-          }
-        />
-        {/* Wrap other protected routes in a similar manner */}
       </Routes>
     </Router>
   );

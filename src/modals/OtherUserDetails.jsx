@@ -27,7 +27,12 @@ const OtherUserDetails = ({ userId, username }) => {
 
   return (
     <>
-      <div onClick={fetchUserDetails}>{username}</div>
+      <div
+        style={{ cursor: "pointer", fontWeight: "bold" }}
+        onClick={fetchUserDetails}
+      >
+        {username}
+      </div>
       <Modal show={isModalVisible} onHide={() => setIsModalVisible(false)}>
         <Modal.Header closeButton>
           <Modal.Title>User Details</Modal.Title>
