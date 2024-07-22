@@ -9,7 +9,7 @@ function CreateRoomButton({ userId, rooms, setRooms }) {
   const toggleModal = () => setModalOpen(!modalOpen);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the form from refreshing the page
+    e.preventDefault();
     const roomData = {
       name: roomName,
       description,
@@ -29,21 +29,20 @@ function CreateRoomButton({ userId, rooms, setRooms }) {
       );
 
       if (!response.ok) {
-        // Attempt to parse the error message from the response
         const errorResponse = await response.json();
         const errorMessage =
           errorResponse.message || `Error: ${response.status}`;
         console.error("Failed to create room:", errorMessage);
-        alert(errorMessage); // Display the custom error message
-        return; // Stop further execution
+        alert(errorMessage);
+        return;
       }
 
       const newRoom = await response.json();
       setRooms([...rooms, newRoom.result]);
-      toggleModal(); // Close the modal after submission
+      toggleModal();
     } catch (error) {
       console.error("Failed to create room:", error);
-      alert("An unexpected error occurred. Please try again."); // Fallback error message
+      alert("An unexpected error occurred. Please try again.");
     }
   };
 

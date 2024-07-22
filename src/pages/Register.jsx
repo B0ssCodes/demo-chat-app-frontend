@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
+  // Same attributes as RegisterRequestDTO in backend
   const [credentials, setCredentials] = useState({
     username: "",
     email: "",
@@ -21,6 +22,19 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Form validation
+    const { username, email, password, description } = credentials;
+    if (!username || !email || !password || !description) {
+      alert("Please fill in all fields.");
+      return;
+    }
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
     try {
       const response = await fetch("https://localhost:7162/api/auth/register", {
         method: "POST",
@@ -28,13 +42,14 @@ function Register() {
         body: JSON.stringify(credentials),
       });
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        alert(`Registration failed: ${data.message}`); // Changed from data.messages to data.message
+        return; // Add return to prevent further execution
       }
-      // Assuming the API returns a success message or user object
-      navigate("/Login"); // Redirect to login page on successful registration
+      navigate("/Login");
     } catch (error) {
       console.error("Registration failed:", error);
-      alert("Registration failed. Please check your details and try again.");
+      alert(`Registration failed. ${error.message}`);
     }
   };
 
@@ -43,7 +58,6 @@ function Register() {
       <div className="container p-5 formContainer">
         <h2 className="text-center">Register</h2>
         <form onSubmit={handleSubmit} className="mt-4">
-          {/* Input fields for username, email, password, description */}
           <div className="form-group mb-3">
             <label htmlFor="username" className="form-label">
               Username:

@@ -10,27 +10,27 @@ function ChatRoom({
 }) {
   // Define inline styles
   const containerStyle = {
-    padding: "20px", // Container padding
-    backgroundColor: "#f0f2f5", // Light grey background
-    borderRadius: "8px", // Rounded corners
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Subtle shadow for depth
+    padding: "20px",
+    backgroundColor: "#f0f2f5",
+    borderRadius: "8px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   };
 
   const headerRowStyle = {
-    marginBottom: "20px", // Space below the header
+    marginBottom: "20px",
   };
 
   const headerStyle = {
-    textAlign: "center", // Center align the header text
+    textAlign: "center",
   };
 
   const messageContainerStyle = {
-    maxHeight: "500px", // Limit height of the message container
-    overflowY: "auto", // Allow scrolling for overflow
+    maxHeight: "500px",
+    overflowY: "auto",
   };
 
   const sendMessageFormStyle = {
-    paddingTop: "20px", // Space above the send message form
+    paddingTop: "20px",
   };
 
   const buttonStyle = {

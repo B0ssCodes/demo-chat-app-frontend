@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 function History({ userId }) {
   const [messages, setMessages] = useState([]);
+  const [emptyMessages, setEmptyMessages] = useState(false);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -13,6 +14,9 @@ function History({ userId }) {
         if (data && data.result) {
           setMessages(data.result);
         }
+        if (data.result.length === 0) {
+          setEmptyMessages(true);
+        }
       } catch (error) {
         console.error("Failed to fetch messages:", error);
       }
@@ -23,6 +27,11 @@ function History({ userId }) {
   return (
     <div style={{ overflow: "auto" }}>
       <h2 className="display-3 mt-4 mb-1">Message History</h2>
+      {emptyMessages && (
+        <p className="text-center">
+          No messages found, join a room and send some!
+        </p>
+      )}
       <ul
         style={{
           maxHeight: "75vh",

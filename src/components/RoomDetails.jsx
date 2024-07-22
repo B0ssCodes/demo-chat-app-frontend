@@ -51,11 +51,71 @@ function RoomDetails({ userId, roomId }) {
               <p>
                 <strong>Users:</strong>
               </p>
-              <ul>
-                {roomDetails.users.map((user, index) => (
-                  <li key={index}>{user.username}</li>
-                ))}
-              </ul>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <ul style={{ flex: 1 }}>
+                  {roomDetails.users
+                    .slice(0, Math.ceil(roomDetails.users.length / 3))
+                    .map((user, index) => (
+                      <li
+                        key={index}
+                        style={{
+                          backgroundColor: "lightblue",
+                          borderRadius: "8px",
+                          padding: "5px",
+                          margin: "2px",
+                        }}
+                      >
+                        <div className="text-center">{user.username}</div>
+                      </li>
+                    ))}
+                </ul>
+                <ul style={{ flex: 1 }}>
+                  {roomDetails.users
+                    .slice(
+                      Math.ceil(roomDetails.users.length / 3),
+                      Math.ceil((2 * roomDetails.users.length) / 3)
+                    )
+                    .map((user, index) => (
+                      <li
+                        key={index}
+                        style={{
+                          backgroundColor: "lightblue",
+                          borderRadius: "8px",
+                          padding: "5px",
+                          margin: "2px",
+                        }}
+                      >
+                        <div className="text-center">{user.username}</div>
+                      </li>
+                    ))}
+                </ul>
+                <ul style={{ flex: 1 }}>
+                  {roomDetails.users
+                    .slice(
+                      Math.ceil((2 * roomDetails.users.length) / 3),
+                      roomDetails.users.length
+                    )
+                    .map((user, index) => (
+                      <li
+                        key={index}
+                        style={{
+                          backgroundColor: "lightblue",
+                          borderRadius: "8px",
+                          padding: "5px",
+                          margin: "2px",
+                        }}
+                      >
+                        <div className="text-center">{user.username}</div>
+                      </li>
+                    ))}
+                </ul>
+              </div>
             </>
           ) : (
             <p>Loading room details...</p>

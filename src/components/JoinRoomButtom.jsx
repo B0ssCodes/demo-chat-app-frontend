@@ -27,21 +27,20 @@ function JoinRoomButton({ userId, rooms, setRooms }) {
       );
 
       if (!response.ok) {
-        // Attempt to parse the error message from the response
         const errorResponse = await response.json();
         const errorMessage =
           errorResponse.message || "Failed to join the room. Please try again.";
         alert(errorMessage);
-        return; // Stop further execution
+        return;
       }
 
       const newRoom = await response.json();
       if (newRoom.success === false) {
         alert(newRoom.message);
-        return; // Stop further execution in case of failure
+        return;
       }
       setRooms([...rooms, newRoom.result]);
-      toggleModal(); // Close the modal after submission
+      toggleModal();
     } catch (error) {
       console.error("Failed to join:", error);
       alert("An unexpected error occurred. Please try again.");

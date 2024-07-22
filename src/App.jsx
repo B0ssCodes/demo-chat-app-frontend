@@ -17,25 +17,24 @@ const App = () => {
   });
 
   const [userId, setUserId] = useState(null);
+  const [username, setUsername] = useState("");
 
-  const handleUserId = (id) => {
-    setUserId(id);
-  };
   useEffect(() => {
-    const token = localStorage.getItem("token"); // Assuming the token is stored with the key 'token'
+    const token = localStorage.getItem("token");
     if (token) {
       const decoded = parseJwt(token);
       if (decoded && decoded.nameid) {
-        handleUserId(decoded.nameid);
+        setUserId(decoded.nameid);
+        setUsername(decoded.unique_name);
       }
     }
-  }, []); // Empty dependency array means this effect runs once on mount
+  }, []);
 
   return (
     <Router>
       <Navbar
         userId={userId}
-        setUserId={handleUserId}
+        setUserId={setUserId}
         userDetails={userDetails}
         setUserDetails={setUserDetails}
       />
@@ -44,7 +43,7 @@ const App = () => {
           path="/"
           element={
             <ProtectedRoute>
-              <Dashboard userId={userId} />
+              <Dashboard userId={userId} username={username} />
             </ProtectedRoute>
           }
         />
@@ -72,7 +71,7 @@ const App = () => {
               userDetails={userDetails}
               setUserDetails={setUserDetails}
               userId={userId}
-              handleUserId={handleUserId}
+              handleUserId={setUserId}
             />
           }
         />

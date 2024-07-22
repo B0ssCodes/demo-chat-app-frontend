@@ -9,7 +9,7 @@ const OtherUserDetails = ({ userId, username }) => {
     try {
       const parsedUserId = parseInt(userId, 10);
       const response = await fetch(
-        `https://localhost:7162/api/auth/userDetails/${parsedUserId}`
+        `https://localhost:7162/api/auth/getUserDetails/${parsedUserId}`
       );
       const data = await response.json();
       if (!response.ok) {
@@ -43,14 +43,6 @@ const OtherUserDetails = ({ userId, username }) => {
               <p>UserId: {userDetails.userId}</p>
               <p>Username: {userDetails.username}</p>
               <p>Description: {userDetails.description}</p>
-              <p>Rooms:</p>
-              <ul>
-                {userDetails.rooms.map((room) => (
-                  <li key={room.roomId}>
-                    {room.name}: {room.roomId}
-                  </li>
-                ))}
-              </ul>
             </>
           )}
         </Modal.Body>

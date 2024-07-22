@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./output.css"; // Adjust the path to where your Tailwind output CSS is located
-import Navbar from "./components/layout/Navbar";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "./output.css";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />

@@ -71,7 +71,7 @@ function ActiveChat() {
           parseInt(roomId, 10),
           messageContent
         );
-        setMessageContent(""); // Clear the input field after sending
+        setMessageContent("");
       } catch (error) {
         console.error("Failed to send message:", error);
       }
@@ -80,7 +80,6 @@ function ActiveChat() {
 
   const endOfMessagesRef = useRef(null);
 
-  // Automatically scroll to the latest message
   useEffect(() => {
     endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -99,7 +98,6 @@ function ActiveChat() {
             )
           )}
           <div ref={endOfMessagesRef} />{" "}
-          {/* Invisible element for automatic scrolling */}
         </div>
         <div className="message-input-container">
           <input

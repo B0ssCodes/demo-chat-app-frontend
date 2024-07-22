@@ -8,7 +8,7 @@ function SendMessageForm({ sendMessage }) {
   const formContainerStyle = {
     backgroundColor: "rgba(255, 255, 255, 0.8)",
     padding: "10px",
-    borderTop: "1px solid #dee2e6", // A light border at the top for separation
+    borderTop: "1px solid #dee2e6",
   };
 
   const inputGroupTextStyle = {

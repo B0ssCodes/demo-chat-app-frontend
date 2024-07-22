@@ -1,10 +1,8 @@
+// Written by copilot, parses a JWT token and returns the payload as an object, contains userId and username
 export function parseJwt(token) {
   try {
-    // Get the second part of the token which contains the payload
     const base64Url = token.split(".")[1];
-    // Replace '-' with '+' and '_' with '/' to make it base64 encoded string
     const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-    // Decode base64 string
     const jsonPayload = decodeURIComponent(
       atob(base64)
         .split("")
@@ -13,10 +11,8 @@ export function parseJwt(token) {
         })
         .join("")
     );
-
-    // Parse the JSON payload
     return JSON.parse(jsonPayload);
   } catch (e) {
-    return null; // Return null if token is invalid
+    return null;
   }
 }

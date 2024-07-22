@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import UserGroup from "./UserGroup";
 import { Col, Row } from "react-bootstrap";
 
-function UserGroups({ rooms, setRooms, userId }) {
+function UserGroups({ rooms, setRooms, userId, username }) {
   useEffect(() => {
     const fetchRooms = async () => {
       const url = `https://localhost:7162/api/room/getRoomsByUser/${userId}`;
@@ -13,7 +13,6 @@ function UserGroups({ rooms, setRooms, userId }) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        // Set the result in state
         setRooms(data.result);
         console.log(data.result);
       } catch (error) {
@@ -28,17 +27,19 @@ function UserGroups({ rooms, setRooms, userId }) {
 
   return (
     <div className="container" style={{ maxHeight: "85vh", overflowY: "auto" }}>
-      <h1 className="text-center mb-4">Your Rooms</h1>
+      <h1 className="text-center mb-4">{username}'s Rooms</h1>
       {rooms.length > 0 ? (
         <Row>
           {rooms.map((room) => (
-            <Col sm={12} md={6} key={room.roomId}>
+            <Col sm={6} md={4} key={room.roomId}>
               <UserGroup room={room} userId={userId} />
             </Col>
           ))}
         </Row>
       ) : (
-        <p className="text-center">No user groups found.</p>
+        <p className="text-center">
+          You are not in any room, create or join one!
+        </p>
       )}
     </div>
   );

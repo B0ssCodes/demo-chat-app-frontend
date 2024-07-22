@@ -2,14 +2,26 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem("token"); // Replace 'token' with your actual token key
+  const token = localStorage.getItem("token");
+  const tokenExpiry = localStorage.getItem("tokenExpiry");
 
-  if (!token) {
-    // If there is no token in localStorage, redirect to login
+  const isTokenExpired = () => {
+    // If there is no token expiry date, return false, there is no token
+    if (!tokenExpiry) return false;
+
+    const expiryDate = new Date(tokenExpiry);
+    const now = new Date();
+
+    return now > expiryDate; // True if expired
+  };
+
+  if (!token || isTokenExpired()) {
+    localStorage.removeItem("token");
+    localStorage.removeItem("tokenExpiry");
     return <Navigate to="/Login" replace />;
   }
 
-  return children; // If there is a token, render the children components
+  return children;
 };
 
 export default ProtectedRoute;

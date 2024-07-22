@@ -13,7 +13,7 @@ function Profile({ userId }) {
     const fetchUserDetails = async () => {
       try {
         const response = await fetch(
-          `https://localhost:7162/api/auth/userDetails/${userId}`
+          `https://localhost:7162/api/auth/getUserDetails/${userId}`
         );
         const data = await response.json();
         if (data && data.result) {
@@ -57,7 +57,6 @@ function Profile({ userId }) {
       if (response.ok && data.success) {
         setSuccessMessage("User details updated successfully.");
       } else {
-        // Display the error message from the response if available
         setSuccessMessage(
           data.message || "An error occurred while updating user details."
         );

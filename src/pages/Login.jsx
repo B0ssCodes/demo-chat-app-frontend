@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Step 1: Import useHistory
+import { useNavigate } from "react-router-dom";
 import { parseJwt } from "../utility/parseJwt";
 
 function Login({ userDetails, setUserDetails, userId, handleUserId }) {
@@ -8,7 +8,7 @@ function Login({ userDetails, setUserDetails, userId, handleUserId }) {
     password: "",
   });
 
-  const navigate = useNavigate(); // Step 2: Use useHistory
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,6 +24,16 @@ function Login({ userDetails, setUserDetails, userId, handleUserId }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if any credential is empty (copilot)
+    const isAnyFieldEmpty = Object.values(credentials).some(
+      (value) => value.trim() === ""
+    );
+    if (isAnyFieldEmpty) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
     try {
       const response = await fetch("https://localhost:7162/api/auth/login", {
         method: "POST",
@@ -38,17 +48,19 @@ function Login({ userDetails, setUserDetails, userId, handleUserId }) {
         username: data.result.username,
         email: data.result.email,
         description: data.result.description,
-      }; // Assuming the response contains the user object
-      const token = data.result.token; // Assuming the response contains the token
+      };
+      const token = data.result.token;
       const decodedJwt = parseJwt(token);
       handleUserId(decodedJwt.nameid);
       console.log(decodedJwt.nameid);
-      // Calculate expiry time (current time + 14 days)
       const expiryTime = new Date(
-        new Date().getTime() + 14 * 24 * 60 * 60 * 1000
+        new Date().getTime() + 7 * 24 * 60 * 60 * 1000
       );
 
-      // Store token and expiry time in localStorage
+      // Delete the token if there is one already
+      localStorage.removeItem("token");
+      localStorage.removeItem("tokenExpiry");
+
       localStorage.setItem("token", token);
       localStorage.setItem("tokenExpiry", expiryTime.toISOString());
 
@@ -59,7 +71,7 @@ function Login({ userDetails, setUserDetails, userId, handleUserId }) {
       });
       console.log(userDetails);
       onLoginSuccess(user);
-      navigate("/"); // Redirect to ChatandWaitRoom
+      navigate("/");
     } catch (error) {
       console.error("Login failed:", error);
       alert("Login failed. Please check your credentials and try again.");
