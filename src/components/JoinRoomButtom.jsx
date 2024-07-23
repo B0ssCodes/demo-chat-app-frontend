@@ -8,19 +8,21 @@ function JoinRoomButton({ userId, rooms, setRooms }) {
   const toggleModal = () => setModalOpen(!modalOpen);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the form from refreshing the page
+    e.preventDefault();
     const roomData = {
       userId: parseInt(userId, 10),
       roomId: parseInt(roomId, 10),
     };
 
     try {
+      const token = localStorage.getItem("token");
       const response = await fetch(
         "https://localhost:7162/api/room/addUserToRoom",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(roomData),
         }

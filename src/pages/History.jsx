@@ -7,8 +7,14 @@ function History({ userId }) {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
+        const token = localStorage.getItem("token");
         const response = await fetch(
-          `https://localhost:7162/api/message/user/${userId}`
+          `https://localhost:7162/api/message/user/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         const data = await response.json();
         if (data && data.result) {

@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import "./ActiveChat.css"; // Ensure this path is correct
-import CurrentUserMessage from "../components/CurrentUserMessage"; // Assuming this is the path to your component
-import OtherUserMessage from "../components/OtherUserMessage"; // Assuming you have a similar component for other users
+import CurrentUserMessage from "../components/CurrentUserMessage";
+import OtherUserMessage from "../components/OtherUserMessage";
 import RoomDetails from "../components/RoomDetails";
 function ActiveChat() {
   const { roomId } = useParams();
@@ -15,7 +15,7 @@ function ActiveChat() {
 
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
-      .withUrl(`https://localhost:7162/chat?userId=${userId}&roomId=${roomId}`) // Adjust the URL to your SignalR hub
+      .withUrl(`https://localhost:7162/chat?userId=${userId}&roomId=${roomId}`)
       .withAutomaticReconnect()
       .build();
 
@@ -40,8 +40,14 @@ function ActiveChat() {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
+        const token = localStorage.getItem("token");
         const response = await fetch(
-          `https://localhost:7162/api/message/room/${roomId}`
+          `https://localhost:7162/api/message/room/${roomId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         const data = await response.json();
         if (data && data.result) {

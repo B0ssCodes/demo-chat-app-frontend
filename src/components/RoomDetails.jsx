@@ -7,7 +7,12 @@ function RoomDetails({ userId, roomId }) {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    fetch(`https://localhost:7162/api/room/getRoom/${roomId}`)
+    const token = localStorage.getItem("token");
+    fetch(`https://localhost:7162/api/room/getRoom/${roomId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => response.json())
       .then((data) => setRoomDetails(data.result))
       .catch((error) => console.error("Error fetching room details:", error));

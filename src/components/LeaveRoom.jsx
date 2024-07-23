@@ -7,12 +7,14 @@ function LeaveRoom({ userId, roomId }) {
   const [showModal, setShowModal] = useState(false);
 
   const handleLeaveRoom = async () => {
+    const token = localStorage.getItem("token");
     const response = await fetch(
       "https://localhost:7162/api/room/removeUserFromRoom",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           userId: parseInt(userId, 10),

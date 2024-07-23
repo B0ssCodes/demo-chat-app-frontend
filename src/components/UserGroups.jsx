@@ -6,9 +6,15 @@ function UserGroups({ rooms, setRooms, userId, username }) {
   useEffect(() => {
     const fetchRooms = async () => {
       const url = `https://localhost:7162/api/room/getRoomsByUser/${userId}`;
+      const token = localStorage.getItem("token");
       try {
         console.log(userId);
-        const response = await fetch(url);
+        const response = await fetch(url, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

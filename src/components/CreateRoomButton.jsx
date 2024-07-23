@@ -17,12 +17,14 @@ function CreateRoomButton({ userId, rooms, setRooms }) {
     };
 
     try {
+      const token = localStorage.getItem("token");
       const response = await fetch(
         "https://localhost:7162/api/room/createRoom",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(roomData),
         }

@@ -12,8 +12,14 @@ function Profile({ userId }) {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
+        const token = localStorage.getItem("token"); // Retrieve the token from localStorage
         const response = await fetch(
-          `https://localhost:7162/api/auth/getUserDetails/${userId}`
+          `https://localhost:7162/api/auth/getUserDetails/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            },
+          }
         );
         const data = await response.json();
         if (data && data.result) {
@@ -38,12 +44,14 @@ function Profile({ userId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem("token");
       const response = await fetch(
         "https://localhost:7162/api/auth/updateUserDetails",
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             userId: parseInt(userDetails.userId, 10),

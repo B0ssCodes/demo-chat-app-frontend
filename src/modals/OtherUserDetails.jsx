@@ -8,8 +8,15 @@ const OtherUserDetails = ({ userId, username }) => {
   const fetchUserDetails = async () => {
     try {
       const parsedUserId = parseInt(userId, 10);
+      const token = localStorage.getItem("token");
       const response = await fetch(
-        `https://localhost:7162/api/auth/getUserDetails/${parsedUserId}`
+        `https://localhost:7162/api/auth/getUserDetails/${parsedUserId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       const data = await response.json();
       if (!response.ok) {
